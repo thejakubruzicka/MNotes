@@ -1,28 +1,28 @@
-/* Global variables for theming */
+/* Global variables for theming (from previous version, ensure they are complete) */
 :root {
     /* Light Theme (Default) */
-    --app-bg-color: #FEF7FF; /* Material 3 Surface */
-    --app-text-color: #1D1B20; /* Material 3 On Surface */
-    --app-surface-color: #FDFCFB; /* Material 3 Surface Container Low */
-    --app-primary-color: #6750A4; /* Material 3 Primary */
+    --app-bg-color: #FEF7FF;
+    --app-text-color: #1D1B20;
+    --app-surface-color: #FDFCFB;
+    --app-primary-color: #6750A4;
     --app-on-primary-color: #FFFFFF;
-    --app-secondary-color: #625B71; /* Material 3 Secondary */
-    --app-outline-color: #79747E; /* Material 3 Outline */
-    --app-note-card-bg: #EADDFF; /* Material 3 Primary Container */
-    --app-note-card-text: #21005D; /* Material 3 On Primary Container */
-    --app-note-card-header: var(--app-primary-color); /* Or #1D192B for On Surface */
+    --app-secondary-color: #625B71;
+    --app-outline-color: #79747E;
+    --app-note-card-bg: #EADDFF; /* Primary Container */
+    --app-note-card-text: #21005D; /* On Primary Container */
+    --app-note-card-header: var(--app-primary-color);
 
     /* MWC Theme Token Mapping */
     --md-sys-color-background: var(--app-bg-color);
     --md-sys-color-on-background: var(--app-text-color);
     --md-sys-color-surface: var(--app-surface-color);
-    --md-sys-color-surface-dim: #DED8E1; /* Example, add more as needed */
+    --md-sys-color-surface-dim: #DED8E1;
     --md-sys-color-surface-bright: #FEF7FF;
     --md-sys-color-surface-container-lowest: #FFFFFF;
     --md-sys-color-surface-container-low: #F7F2FA;
     --md-sys-color-surface-container: #F3EDF7;
     --md-sys-color-surface-container-high: #ECE6F0;
-    --md-sys-color-surface-container-highest: #E6E0E9; /* Was used for note cards */
+    --md-sys-color-surface-container-highest: #E6E0E9;
     --md-sys-color-surface-variant: #E7E0EC;
     --md-sys-color-on-surface: var(--app-text-color);
     --md-sys-color-on-surface-variant: #49454F;
@@ -36,32 +36,31 @@
     --md-sys-color-on-error: #FFFFFF;
     --md-sys-color-outline: var(--app-outline-color);
     --md-sys-color-shadow: #000000;
-    --md-sys-color-surface-tint-color: var(--app-primary-color); /* Alias for primary */
-
+    --md-sys-color-surface-tint-color: var(--app-primary-color);
 
     /* Expressive shape tokens */
     --md-sys-shape-corner-extra-small: 4px;
     --md-sys-shape-corner-small: 8px;
     --md-sys-shape-corner-medium: 12px;
-    --md-sys-shape-corner-large: 16px; /* Used for cards */
+    --md-sys-shape-corner-large: 16px; /* Used for cards, FABs */
     --md-sys-shape-corner-extra-large: 28px; /* Used for dialogs */
-    --md-sys-shape-corner-full: 9999px; /* For fully rounded elements like FAB */
+    --md-sys-shape-corner-full: 9999px; /* For fully rounded "pill" shapes */
 }
 
 body.dark-theme {
     /* Dark Theme Overrides */
     --app-bg-color: #141218;
     --app-text-color: #E6E0E9;
-    --app-surface-color: #1C1B1F; /* Material 3 Surface Container Low (Dark) */
+    --app-surface-color: #1C1B1F;
     --app-primary-color: #D0BCFF;
     --app-on-primary-color: #381E72;
     --app-secondary-color: #CCC2DC;
     --app-outline-color: #938F99;
-    --app-note-card-bg: #4A4458; /* Material 3 Primary Container (Dark) - example, adjust to preference */
-    --app-note-card-text: #E8DEF8; /* Material 3 On Primary Container (Dark) */
+    --app-note-card-bg: #36343B; /* Surface Container Highest (Dark) */
+    --app-note-card-text: #CAC4D0; /* On Surface Variant (Dark) */
     --app-note-card-header: var(--app-primary-color);
 
-    /* MWC Dark Theme Token Mapping (subset, repeat for all relevant tokens) */
+    /* MWC Dark Theme Token Mapping (subset) */
     --md-sys-color-surface-dim: #141218;
     --md-sys-color-surface-bright: #3B383E;
     --md-sys-color-surface-container-lowest: #0F0D13;
@@ -75,106 +74,51 @@ body.dark-theme {
     --md-sys-color-surface-tint-color: var(--app-primary-color);
 }
 
-/* Apply MWC tokens for body styles */
 body {
-    font-family: 'Roboto', sans-serif; /* Already set in head style */
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     background-color: var(--md-sys-color-background);
     color: var(--md-sys-color-on-background);
     transition: background-color 0.3s, color 0.3s;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 16px;
-}
+.container { max-width: 800px; margin: 0 auto; padding: 16px; }
+header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; margin-bottom: 20px; }
+header h1 { margin: 0; color: var(--md-sys-color-primary); font-size: 2em; }
+#themeToggleBtn md-icon { color: var(--md-sys-color-secondary); }
 
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 16px;
-    margin-bottom: 20px;
-}
-header h1 {
-    margin: 0;
-    color: var(--md-sys-color-primary);
-    font-size: 2em; /* More prominent title */
-}
-#themeToggleBtn md-icon {
-    color: var(--md-sys-color-secondary); /* Themed icon color */
-}
-
-/* Note Card Styling */
 .note-card {
     margin-bottom: 16px;
     padding: 16px;
-    border-radius: var(--md-sys-shape-corner-large); /* Expressive rounding via token */
+    border-radius: var(--md-sys-shape-corner-large); /* 16px */
     background-color: var(--app-note-card-bg);
     color: var(--app-note-card-text);
     position: relative;
-    /* box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.1); MWC Elevation handles this */
     overflow: hidden;
 }
-.note-card md-elevation { /* This applies the standard MWC shadow */
-    --md-elevation-level: 1;
-}
+.note-card md-elevation { --md-elevation-level: 1; }
+.note-card h3 { margin-top: 0; margin-bottom: 8px; color: var(--app-note-card-header); font-size: 1.25em; font-weight: 500; }
+.note-card p { margin-bottom: 8px; white-space: pre-wrap; font-size: 0.95em; line-height: 1.5; }
+.note-card-actions { position: absolute; top: 8px; right: 8px; display: flex; }
+.note-card-actions md-icon-button { --md-icon-button-icon-color: var(--app-note-card-text); } /* MWC default can be used */
+.note-card-actions md-icon-button:hover { /* MWC handles hover states well */ }
 
-.note-card h3 {
-    margin-top: 0;
-    margin-bottom: 8px;
-    color: var(--app-note-card-header);
-    font-size: 1.25em;
-    font-weight: 500;
-}
-
-.note-card p {
-    margin-bottom: 8px;
-    white-space: pre-wrap;
-    font-size: 0.95em;
-    line-height: 1.5;
-}
-
-.note-card-actions {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    display: flex;
-}
-.note-card-actions md-icon-button {
-    --md-icon-button-icon-color: var(--app-note-card-text);
-}
-.note-card-actions md-icon-button:hover {
-    --md-icon-button-icon-color: var(--app-primary-color);
-}
-
-/* FAB Styling (MWC theming should mostly handle this) */
 md-fab {
     position: fixed;
     bottom: 24px;
     right: 24px;
-    /* --md-fab-container-shape: var(--md-sys-shape-corner-large); /* Example of shape override if not default */
+    /* MWC FABs use --md-fab-container-shape, which defaults to --md-sys-shape-corner-large (16px for a standard FAB) */
+    /* If you want it perfectly circular and it's a regular (non-extended) FAB: */
+    /* --md-fab-container-shape: var(--md-sys-shape-corner-full); */
+    /* However, the default is usually quite rounded already. Primary variant is good. */
 }
 
-/* Dialog Styling */
 md-dialog {
-    /* MWC sets its own width, can be overridden with --md-dialog-container-min-width etc. */
-    /* border-radius: var(--md-sys-shape-corner-extra-large); /* MWC default or use --md-dialog-container-shape */
-    --md-dialog-container-color: var(--md-sys-color-surface-container-high); /* Themed dialog bg */
+    /* --md-dialog-container-shape default is --md-sys-shape-corner-extra-large (28px) */
+    --md-dialog-container-color: var(--md-sys-color-surface-container-high);
     --md-dialog-headline-color: var(--md-sys-color-on-surface-variant);
     --md-dialog-supporting-text-color: var(--md-sys-color-on-surface-variant);
 }
-md-dialog [slot="headline"] {
-    font-size: 1.5em;
-    font-weight: 500;
-    /* color: var(--md-sys-color-primary); /* Already set by --md-dialog-headline-color or inherited */
-}
+md-dialog [slot="headline"] { font-size: 1.5em; font-weight: 500; }
 
-/* Placeholder text for empty notes list */
-#notesList > p {
-    text-align: center;
-    color: var(--md-sys-color-outline);
-    padding: 20px 0;
-    font-size: 1.1em;
-}
+#notesList > p { text-align: center; color: var(--md-sys-color-outline); padding: 20px 0; font-size: 1.1em; }
