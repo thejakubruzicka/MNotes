@@ -488,14 +488,38 @@
       border-radius: 28px;
       width: 100%;
       max-width: 400px;
+      max-height: 80vh; /* Limit height to 80% of viewport height */
       box-shadow: var(--elevation-level-3);
       transform: scale(0.9);
       transition: transform 0.3s;
       color: var(--on-surface-color);
+      display: flex;
+      flex-direction: column; /* Organize content vertically */
+      overflow: hidden; /* Hide overflow but allow internal scrolling */
     }
 
     .modal.visible .modal-content {
       transform: scale(1);
+    }
+
+    /* Ensuring modal content areas are properly scrollable */
+    .markdown-content {
+      overflow-y: auto; /* Make content scrollable */
+      max-height: 60vh; /* Limit height to leave room for buttons */
+      margin-bottom: 16px; /* Space before buttons */
+      padding-right: 8px; /* Room for scrollbar */
+    }
+
+    /* News modal specific styles */
+    #newsModal .modal-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #newsContent {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 16px;
     }
 
     .modal-title {
@@ -1018,7 +1042,7 @@
       <div id="newsContent" class="markdown-content">
         <!-- News content will be loaded here -->
       </div>
-      <div class="modal-actions">
+      <div class="modal-actions" style="margin-top: auto; position: sticky; bottom: 0; background: var(--surface-color); padding-top: 8px;">
         <div class="checkbox-container">
           <input type="checkbox" id="dontShowAgain" class="styled-checkbox">
           <label for="dontShowAgain">Don't show again</label>
