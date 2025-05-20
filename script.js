@@ -126,7 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currentEditingId = null;
             noteDialog.querySelector('[slot="headline"]').textContent = 'Add New Note';
         }
-        noteDialog.show();
+        // Material Web Components use open property instead of show() method
+        noteDialog.open = true;
     }
 
     function handleDialogClose(event) {
@@ -159,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // then manually close if valid.
                 // Since `method="dialog"` auto-closes, we re-show if invalid.
                 // This is a common pattern if not using full form.requestSubmit().
-                noteDialog.show(); // Re-open dialog if validation fails after it auto-closed.
+                noteDialog.open = true; // Re-open dialog if validation fails after it auto-closed.
                 return;
             }
 
