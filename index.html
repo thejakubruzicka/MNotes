@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- CRITICAL FIX: Expanded Import Map for resolving bare module specifiers -->
+    <!-- CRITICAL FIX: Import Map for resolving bare module specifiers. NO COMMENTS INSIDE JSON! -->
     <script type="importmap">
       {
         "imports": {
@@ -28,15 +28,6 @@
           "lit/html.js": "https://cdn.jsdelivr.net/npm/lit@3.1.2/html.js",
           "lit/preact-render-to-string.js": "https://cdn.jsdelivr.net/npm/lit@3.1.2/preact-render-to-string.js",
           "lit/reactive-element.js": "https://cdn.jsdelivr.net/npm/lit@3.1.2/reactive-element.js"
-          /* Add more lit paths if console errors show new ones.
-             Common ones often include:
-             "lit/directives/if-defined.js",
-             "lit/directives/style-map.js",
-             "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@3.1.2/lit-html.js",
-             "lit-html/directives/class-map.js": "https://cdn.jsdelivr.net/npm/lit-html@3.1.2/directives/class-map.js",
-             "lit-html/directives/when.js": "https://cdn.jsdelivr.net/npm/lit-html@3.1.2/directives/when.js"
-             ... (check lit.dev for full paths)
-          */
         }
       }
     </script>
