@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNotes</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Material Web Components (MWC) - Using Lit's CDN for simplicity -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/all.js"></script>
+    <style>
+        /* Pre-render styles to avoid FOUC for MWC */
+        body { font-family: 'Roboto', sans-serif; margin: 0; background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); }
+        .container { max-width: 800px; margin: 20px auto; padding: 0 16px; }
+        .note-card {
+            margin-bottom: 16px;
+            padding: 16px;
+            border-radius: 12px; /* Expressive rounding */
+            background-color: var(--md-sys-color-surface-container-highest);
+            position: relative;
+        }
+        .note-card-actions {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+        }
+        md-fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+        }
+        md-dialog { width: min(calc(100vw - 48px), 600px); }
+        md-dialog [slot="headline"] { font-size: 1.5em; }
+        md-dialog md-filled-text-field, md-dialog md-outlined-text-field { width: 100%; margin-bottom: 16px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header style="display: flex; align-items: center; justify-content: space-between; padding: 16px 0;">
+            <h1 style="margin: 0; color: var(--md-sys-color-primary);">Material Notes</h1>
+            <!-- Maybe a theme toggle later -->
+        </header>
+
+        <div id="notesList">
+            <!-- Notes will be rendered here -->
+        </div>
+
+        <md-fab aria-label="Add Note" id="addNoteFab">
+            <md-icon slot="icon">add</md-icon>
+        </md-fab>
+    </div>
+
+    <!-- Note Dialog (for creating/editing) -->
+    <md-dialog id="noteDialog">
+        <div slot="headline">Add/Edit Note</div>
+        <form slot="content" id="noteForm" method="dialog">
+            <input type="hidden" id="noteIdInput">
+            <md-filled-text-field label="Title" id="noteTitleInput" required></md-filled-text-field>
+            <md-outlined-text-field label="Content" id="noteContentInput" type="textarea" rows="5" required></md-outlined-text-field>
+        </form>
+        <div slot="actions">
+            <md-text-button form="noteForm" value="cancel">Cancel</md-text-button>
+            <md-filled-button form="noteForm" value="save">Save</md-filled-button>
+        </div>
+    </md-dialog>
+
+    <script src="script.js"></script>
+</body>
+</html>
