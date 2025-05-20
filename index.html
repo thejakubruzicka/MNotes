@@ -8,36 +8,31 @@
     <!-- Material Symbols -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <!-- Roboto Font (recommended for Material Design) -->
+    <!-- Roboto Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Material Web Components (MWC) - Using a more recent version -->
+    <!-- Material Web Components (MWC) -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.4.1/all.js"></script>
 
     <style>
-        /* Minimal pre-render styles to avoid FOUC and ensure basic layout */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
-            /* Fallback colors, MWC themes will override */
-            background-color: #fff;
-            color: #000;
-            opacity: 0; /* Initially hide body to prevent FOUC */
-            transition: opacity 0.2s ease-in-out;
+            background-color: #fff; /* Fallback */
+            color: #000; /* Fallback */
+            opacity: 0; /* Hidden by default to prevent FOUC */
+            transition: opacity 0.3s ease-in-out;
         }
         body.loaded {
-            opacity: 1; /* Show body once MWC is likely ready */
+            opacity: 1; /* Shown when MWC and app script are ready */
         }
-        /* Hide dialog by default to prevent flash of content if MWC is slow */
-        md-dialog {
-            display: none;
-        }
-        md-dialog[open] { /* MWC sets 'open' attribute which makes it visible */
-            display: flex; /* Or block, MWC handles actual display type */
+        /* Hide dialog by default to prevent flash of unstyled content */
+        md-dialog:not([open]) {
+            display: none !important;
         }
     </style>
 </head>
@@ -46,20 +41,19 @@
         <header>
             <h1 id="appTitle">MNotes</h1>
             <md-icon-button id="themeToggleBtn" aria-label="Toggle theme">
-                <md-icon>dark_mode</md-icon> <!-- Icon will change dynamically -->
+                <md-icon>dark_mode</md-icon> <!-- Will be correctly rendered by MWC -->
             </md-icon-button>
         </header>
 
         <div id="notesList">
-            <!-- Notes will be rendered here by JavaScript -->
+            <!-- Notes will be rendered here -->
         </div>
 
         <md-fab aria-label="Add Note" id="addNoteFab" variant="primary">
-            <md-icon slot="icon">add</md-icon>
+            <md-icon slot="icon">add</md-icon> <!-- Will be correctly rendered by MWC -->
         </md-fab>
     </div>
 
-    <!-- Note Dialog (for creating/editing) -->
     <md-dialog id="noteDialog">
         <div slot="headline">Add/Edit Note</div>
         <form slot="content" id="noteForm" method="dialog">
@@ -73,22 +67,6 @@
         </div>
     </md-dialog>
 
-    <script src="script.js"></script>
-    <script>
-        // Add 'loaded' class to body after MWC components are likely defined
-        function showBody() {
-            if (customElements.get('md-fab')) { // Check if a MWC component is defined
-                document.body.classList.add('loaded');
-            } else {
-                // Fallback if MWC takes longer or fails for some reason
-                setTimeout(() => document.body.classList.add('loaded'), 400);
-            }
-        }
-        if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', showBody);
-        } else {
-            showBody();
-        }
-    </script>
+    <script src="script.js"></script> <!-- script.js will handle MWC readiness -->
 </body>
 </html>
