@@ -4,50 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MNotes</title>
-    <link rel="stylesheet" href="style.css">
+
     <!-- Material Symbols -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <!-- Material Web Components (MWC) - Using Lit's CDN for simplicity -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/all.js"></script>
+
+    <!-- Roboto Font (recommended for Material Design) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Material Web Components (MWC) - Using a more recent version -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.4.1/all.js"></script>
+
     <style>
-        /* Pre-render styles to avoid FOUC for MWC */
-        body { font-family: 'Roboto', sans-serif; margin: 0; background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); }
-        .container { max-width: 800px; margin: 20px auto; padding: 0 16px; }
-        .note-card {
-            margin-bottom: 16px;
-            padding: 16px;
-            border-radius: 12px; /* Expressive rounding */
-            background-color: var(--md-sys-color-surface-container-highest);
-            position: relative;
+        /* Minimal pre-render styles to avoid FOUC and ensure basic layout */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            /* Fallback colors, MWC themes will override */
+            background-color: #fff;
+            color: #000;
+            opacity: 0; /* Initially hide body to prevent FOUC */
+            transition: opacity 0.2s ease-in-out;
         }
-        .note-card-actions {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            display: flex;
+        body.loaded {
+            opacity: 1; /* Show body once MWC is likely ready */
         }
-        md-fab {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
+        /* Hide dialog by default to prevent flash of content if MWC is slow */
+        md-dialog {
+            display: none;
         }
-        md-dialog { width: min(calc(100vw - 48px), 600px); }
-        md-dialog [slot="headline"] { font-size: 1.5em; }
-        md-dialog md-filled-text-field, md-dialog md-outlined-text-field { width: 100%; margin-bottom: 16px;}
+        md-dialog[open] { /* MWC sets 'open' attribute which makes it visible */
+            display: flex; /* Or block, MWC handles actual display type */
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <header style="display: flex; align-items: center; justify-content: space-between; padding: 16px 0;">
-            <h1 style="margin: 0; color: var(--md-sys-color-primary);">MNotes</h1>
-            <!-- Maybe a theme toggle later -->
+        <header>
+            <h1 id="appTitle">MNotes</h1>
+            <md-icon-button id="themeToggleBtn" aria-label="Toggle theme">
+                <md-icon>dark_mode</md-icon> <!-- Icon will change dynamically -->
+            </md-icon-button>
         </header>
 
         <div id="notesList">
-            <!-- Notes will be rendered here -->
+            <!-- Notes will be rendered here by JavaScript -->
         </div>
 
-        <md-fab aria-label="Add Note" id="addNoteFab">
+        <md-fab aria-label="Add Note" id="addNoteFab" variant="primary">
             <md-icon slot="icon">add</md-icon>
         </md-fab>
     </div>
@@ -57,15 +64,31 @@
         <div slot="headline">Add/Edit Note</div>
         <form slot="content" id="noteForm" method="dialog">
             <input type="hidden" id="noteIdInput">
-            <md-filled-text-field label="Title" id="noteTitleInput" required></md-filled-text-field>
-            <md-outlined-text-field label="Content" id="noteContentInput" type="textarea" rows="5" required></md-outlined-text-field>
+            <md-filled-text-field label="Title" id="noteTitleInput" required style="width: 100%; margin-bottom: 16px;"></md-filled-text-field>
+            <md-outlined-text-field label="Content" id="noteContentInput" type="textarea" rows="5" required style="width: 100%; margin-bottom: 16px;"></md-outlined-text-field>
         </form>
         <div slot="actions">
             <md-text-button form="noteForm" value="cancel">Cancel</md-text-button>
-            <md-filled-button form="noteForm" value="save">Save</md-filled-button>
+            <md-filled-button form="noteForm" value="save" type="submit">Save</md-filled-button>
         </div>
     </md-dialog>
 
     <script src="script.js"></script>
+    <script>
+        // Add 'loaded' class to body after MWC components are likely defined
+        function showBody() {
+            if (customElements.get('md-fab')) { // Check if a MWC component is defined
+                document.body.classList.add('loaded');
+            } else {
+                // Fallback if MWC takes longer or fails for some reason
+                setTimeout(() => document.body.classList.add('loaded'), 400);
+            }
+        }
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', showBody);
+        } else {
+            showBody();
+        }
+    </script>
 </body>
 </html>
