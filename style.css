@@ -1,0 +1,34 @@
+/* Basic body styling is in index.html's <style> tag for pre-rendering */
+
+/*
+  Material 3 Theme Customization (Optional)
+  You can override Material Design system tokens here.
+  Find tokens at: https://m3.material.io/styles/color/theming/custom-theming
+  Example:
+*/
+:root {
+    /* --md-sys-color-primary: #6750A4; */
+    /* --md-sys-color-secondary: #958DA5; */
+    /* --md-sys-color-tertiary: #B58392; */
+    /* --md-ref-typeface-brand: 'Your Custom Font', sans-serif; */ /* For expressive typography */
+}
+
+/* Add any additional global styles or component-specific overrides here */
+.note-card h3 {
+    margin-top: 0;
+    color: var(--md-sys-color-primary);
+}
+
+.note-card p {
+    margin-bottom: 8px;
+    white-space: pre-wrap; /* Preserve line breaks in content */
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Style for note action buttons */
+.note-card-actions md-icon-button {
+    --md-icon-button-icon-color: var(--md-sys-color-on-surface-variant);
+}
+.note-card-actions md-icon-button:hover {
+    --md-icon-button-icon-color: var(--md-sys-color-primary);
+}
