@@ -15,7 +15,18 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Material Web Components (MWC) -->
+    <!-- CRITICAL FIX: Import Map for resolving bare module specifiers like "tslib" -->
+    <script type="importmap">
+      {
+        "imports": {
+          "tslib": "https://cdn.jsdelivr.net/npm/tslib@2.6.2/tslib.es6.min.js",
+          "@material/web/": "https://cdn.jsdelivr.net/npm/@material/web@1.4.1/"
+        }
+      }
+    </script>
+
+    <!-- Material Web Components (MWC) - Using a more recent version -->
+    <!-- This MUST come AFTER the importmap -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.4.1/all.js"></script>
 
     <style>
@@ -41,7 +52,7 @@
         <header>
             <h1 id="appTitle">MNotes</h1>
             <md-icon-button id="themeToggleBtn" aria-label="Toggle theme">
-                <md-icon>dark_mode</md-icon> <!-- Will be correctly rendered by MWC -->
+                <md-icon>dark_mode</md-icon>
             </md-icon-button>
         </header>
 
@@ -50,7 +61,7 @@
         </div>
 
         <md-fab aria-label="Add Note" id="addNoteFab" variant="primary">
-            <md-icon slot="icon">add</md-icon> <!-- Will be correctly rendered by MWC -->
+            <md-icon slot="icon">add</md-icon>
         </md-fab>
     </div>
 
@@ -67,6 +78,6 @@
         </div>
     </md-dialog>
 
-    <script src="script.js"></script> <!-- script.js will handle MWC readiness -->
+    <script src="script.js"></script>
 </body>
 </html>
